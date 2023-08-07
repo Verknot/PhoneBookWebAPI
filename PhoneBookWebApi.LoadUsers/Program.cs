@@ -12,23 +12,26 @@ namespace PhoneBookWebAPI.LoadUsers
     {
         static async Task Main(string[] args)
         {
+            Logger logger = new Logger("C:\\С# Projects\\PhoneBook\\PhoneBookWebAPI\\PhoneBookWebApi.LoadUsers\\Logs.txt");
+
             Console.WriteLine("ConsoleUsers");
             Console.WriteLine("Введите количество пользователей ");
-
+            
             string user = Console.ReadLine();
+            logger.WriteMessage($"Загрузить {user}");
 
             //получаем данные
             string url = $"https://randomuser.me/api/?results={user}";
             var service = new WebUsersApiService(url);
             var users = await service.GetUsersAsync();
-
+            logger.WriteMessage($"Получить {users}");
             Console.WriteLine($"Получено {users.Count()} пользователей");
 
             //сохраняем данные в БД
             var repository = new UserRepository();
             int result = await repository.SaveUsersAsync(users);
-
-            Console.WriteLine($"Сохранено {result.ToString()} пользователей в БД");
+            logger.WriteMessage($"Успешно {user}");
+            Console.WriteLine($"Сохранено {result/2} пользователей в БД");
 
             Console.ReadLine();
         }

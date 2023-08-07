@@ -11,6 +11,8 @@ namespace PhoneBookWebAPI.DAL
     {
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+
 
 
         public AppDataContext()
@@ -30,6 +32,9 @@ namespace PhoneBookWebAPI.DAL
             {
                 builder.Property(e => e.PhoneNumber).HasMaxLength(15);
 
+            //    builder.Property(p => p.Name.First).HasColumnName("FisrtName");
+
+
                 builder.OwnsOne(e => e.Name, navBuilder =>
                 {
                     navBuilder.Property(e => e.First);
@@ -38,12 +43,12 @@ namespace PhoneBookWebAPI.DAL
 
                 builder.OwnsOne(e => e.Birthday);
 
+                
+
             });
 
 
-
-
-
+       
             /*modelBuilder.Entity<Picture>(builder =>
             {
                 var enumToStringConverter = new EnumToStringConverter<PictureType>();
@@ -52,7 +57,7 @@ namespace PhoneBookWebAPI.DAL
                 var uriToStringConverter = new UriToStringConverter();
                 builder.Property(e => e.Url).HasConversion(uriToStringConverter);
             });*/
-
+            /*
             modelBuilder.Entity<UserPicture>(builder =>
             {
                 builder.HasKey(e => new { e.UserId, e.PictureId });
@@ -69,7 +74,7 @@ namespace PhoneBookWebAPI.DAL
                     .HasPrincipalKey<Picture>(e => e.Id)
                     .OnDelete(DeleteBehavior.Cascade);
             }
-          );
+          );*/
 
 
 

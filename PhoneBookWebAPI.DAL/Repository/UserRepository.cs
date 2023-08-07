@@ -1,4 +1,5 @@
-﻿using PhoneBookWebAPI.Domain.Entity;
+﻿using Microsoft.Extensions.Logging;
+using PhoneBookWebAPI.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,15 @@ namespace PhoneBookWebAPI.DAL.Repository
             int result = 0;
             using (var context = new AppDataContext())
             {
-                context.Users.AddRange(users);
-                result = await context.SaveChangesAsync();
+                try
+                {
+                    context.Users.AddRange(users);
+                    result = await context.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
             return result;

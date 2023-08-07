@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace PhoneBookWebAPI.Domain.Entity
 {
-    public class Picture : EntityBase
-    {
-        public PictureType Type { get; set; }
-        public Uri Url { get; set; }
-        public byte[] Image { get; set; }
-        public string Path { get; set; }
-    }
+        public class Picture : EntityBase
+        {
+            public string large { get; set; }
+            public string medium { get; set; }
+            public string thumbnail { get; set; }
+
+            public int? UserId { get; set; }
+
+            public User User { get; set; }
+
+        }
 
 }
