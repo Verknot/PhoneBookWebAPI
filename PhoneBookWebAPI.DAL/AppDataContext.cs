@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PhoneBookWebAPI.Domain.Entity;
-using PhoneBookWebAPI.Domain.Links;
+using PhoneBookWebAPI.Domain.Entity.Enum;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-
+using System.Threading.Tasks;
 namespace PhoneBookWebAPI.DAL
 {
     public class AppDataContext : DbContext
@@ -13,26 +14,39 @@ namespace PhoneBookWebAPI.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Picture> Pictures { get; set; }
 
+        public DbSet<Person> Persons { get; set; }
 
 
-        public AppDataContext()
+        public AppDataContext(DbContextOptions<AppDataContext> options)
+           : base(options)
         {
-            Database.EnsureDeleted();
+         //   Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+
+
+    /*    public AppDataContext()
+        {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
+        }*/
+
+    /*    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TestPhoneUsers;Trusted_Connection=True;");
-        }
+            optionsBuilder.LogTo(System.Console.WriteLine);
+        }*/
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(builder =>
             {
                 builder.Property(e => e.PhoneNumber).HasMaxLength(15);
-
-            //    builder.Property(p => p.Name.First).HasColumnName("FisrtName");
 
 
                 builder.OwnsOne(e => e.Name, navBuilder =>
@@ -43,11 +57,20 @@ namespace PhoneBookWebAPI.DAL
 
                 builder.OwnsOne(e => e.Birthday);
 
-                
+                builder.OwnsOne(e => e.Pictures);
 
             });
 
-
+            modelBuilder.Entity<Person>(builder =>
+            {
+                builder.HasData(new Person
+                {
+                    Id = 1,
+                    Login = "Admin" ,
+                    Password = "12345678" ,
+                    Role =  Role.Admin,
+                });
+            });
        
             /*modelBuilder.Entity<Picture>(builder =>
             {

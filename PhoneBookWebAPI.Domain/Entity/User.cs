@@ -1,5 +1,4 @@
 ﻿using PhoneBookWebAPI.Domain.Entity.Base;
-using PhoneBookWebAPI.Domain.Links;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ namespace PhoneBookWebAPI.Domain.Entity
 {
     public class User : EntityBase
     {
+
         [JsonPropertyName("name")]
         public Name Name { get; set; }
         [JsonPropertyName("phone")]

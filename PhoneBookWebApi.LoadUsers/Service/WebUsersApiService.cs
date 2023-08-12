@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using PhoneBookWebAPI.DAL;
 using PhoneBookWebAPI.Domain.Entity;
 using PhoneBookWebAPI.Domain.Responce;
 using System;
@@ -23,7 +26,7 @@ namespace PhoneBookWebAPI.LoadUsers.Service
             {
                 throw new ArgumentException(nameof(url));
             }
-
+            
             _url = url;
         }
 
@@ -34,7 +37,6 @@ namespace PhoneBookWebAPI.LoadUsers.Service
 
             try
             {
-     
                 using (var response = await _client.GetAsync(_url))
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
@@ -47,6 +49,7 @@ namespace PhoneBookWebAPI.LoadUsers.Service
             {
                 Debug.WriteLine(ex.Message);
             }
+
 
             return webUsers.resultst;
          }

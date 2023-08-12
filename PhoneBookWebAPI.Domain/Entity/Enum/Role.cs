@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhoneBookWebAPI.Domain.Enum
+namespace PhoneBookWebAPI.Domain.Entity.Enum
 {
-    public enum StatusCode
+    public enum Role
     {
-        OK = 200,
-        UserNotFound = 404,
+        User,
+        Moderator,
+        Admin
     }
 }

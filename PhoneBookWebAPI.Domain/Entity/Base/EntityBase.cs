@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PhoneBookWebAPI.Domain.Entity.Base
@@ -17,7 +18,7 @@ namespace PhoneBookWebAPI.Domain.Entity.Base
 
     public interface IEntity<T>
     {
-        T Id { get; set; }
+        public  T Id { get; set; }
     }
 
 }
